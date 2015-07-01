@@ -4,6 +4,8 @@ import org.scalatest.Matchers
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.path.FunSpecLike
 
+import scala.collection.mutable
+
 /**
  * Created by mike on 01/06/15.
  */
@@ -20,9 +22,9 @@ class ShoppingCartSpec
     describe("containing apples") {
       cart.Add("apple")
 
-      it("contains apples") {
-        cart.items should have length 1
-        cart.items should contain (store.Item(0.6, "apple"))
+      it("contains 2 apples") {
+        cart.items should have length 2
+        //cart.items should contain (mutable.MutableList(Item.apple(), Item.apple()))
       }
 
       it("costs 60p") {

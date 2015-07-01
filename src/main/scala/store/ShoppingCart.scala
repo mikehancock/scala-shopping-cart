@@ -7,11 +7,11 @@ import scala.collection.mutable
  */
 object ShoppingCart {
   def apply(): ShoppingCart = {
-    new ShoppingCart(Map("apple" -> Item(0.60, "apple"), "orange" -> Item(0.25, "orange")));
+    new ShoppingCart(Map("apple" -> Item.apple(), "orange" -> Item(0.25, "orange")), Map("apple" -> Offer(Item.apple())));
   }
 }
 
-class ShoppingCart(val products: Map[String, Item]) {
+class ShoppingCart(val products: Map[String, Item], val offers: Map[String, Offer]) {
   var total = BigDecimal("0.0")
   val items = mutable.MutableList[Item]()
   def Add(item: String) = {
@@ -19,6 +19,10 @@ class ShoppingCart(val products: Map[String, Item]) {
       case i: Item =>
         total += i.price
         items += i
+    }
+    offers.get(item) match {
+      case o: Some[Offer] => items += o.get.freeItem
+      case None =>
     }
   }
 }
